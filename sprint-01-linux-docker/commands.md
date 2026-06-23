@@ -16,7 +16,7 @@ docker rm devops-nginx #удаление контейнера
 docker images #показывает все образы докера в среде
 mkdir -p docker/nginx-site #создаем директорию docker внутри нее nginx-site
 cd docker/nginx-site #переходим внутрь папки nginx-site
-echo "<h1>Hello from my DevOps roadmap</h1>" > index.html #создаем файл index.html  и записываем туда содержимое "<h1>..."
+echo '<h1>Hello from my DevOps roadmap</h1>' > index.html #создаем файл index.html  и записываем туда содержимое "<h1>..."
 docker run --name custom-nginx -d -p 8080:80 -v ${PWD}:/usr/share/nginx/html nginx # создаем и запускаем контейнер custom-nginx, но вместо корневого html файла подставляем свой по указанному пути
 curl http://localhost:8080
 docker stop custom-nginx
