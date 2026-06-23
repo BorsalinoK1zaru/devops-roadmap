@@ -22,3 +22,44 @@ curl http://localhost:8080
 docker stop custom-nginx
 docker rm custom-nginx
 ```
+
+
+## День 4
+
+```bash
+mkdir -p docker/day-04-custom-nginx
+cd docker/day-04-custom-nginx
+
+cat > index.html <<'EOF'
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>DevOps Day 4</title>
+</head>
+<body>
+    <h1>Hello from custom Docker image</h1>
+    <p>Это мой первый собственный Docker image на базе Nginx.</p>
+</body>
+</html>
+EOF
+
+cat > Dockerfile <<'EOF'
+FROM nginx:latest 
+
+COPY index.html /usr/share/nginx/html/index.html
+EOF
+
+#FROM nginx:latest берем за основу nginx
+
+#COPY index.html /usr/share/nginx/html/index.html вставляем свою главную страницу заместо той, которую ждет nginx
+
+docker build -t my-nginx-site:day4 . #собираем образ
+docker images # выводим все образы
+docker run --name my-nginx-container -d -p 8080:80 my-nginx-site:day4 #собираем и запускаем контейнер по образу my-nginx-site:day4
+docker ps
+curl http://localhost:8080
+docker exec -it my-nginx-container sh
+docker stop my-nginx-container
+docker rm my-nginx-container
+```

@@ -38,3 +38,13 @@ docker rm удаляет контейнер.
 - Docker container — это запущенный экземпляр image.
 - Volume mount позволяет подключить папку с моей машины внутрь контейнера.
 - В команде `-v ${PWD}:/usr/share/nginx/html` моя текущая папка заменяет стандартную папку сайта Nginx внутри контейнера.
+
+## День 4. Что я понял
+
+- Dockerfile — это инструкция для сборки Docker image.
+- `FROM nginx:latest` берёт готовый Nginx image как основу.
+- `COPY index.html /usr/share/nginx/html/index.html` копирует мой HTML-файл внутрь image.
+- `docker build` собирает image.
+- `docker run` запускает container из image.
+- Tag нужен, чтобы различать версии image, например `my-nginx-site:day4`.
+- Точка в `docker build -t my-nginx-site:day4 .` означает текущую папку как build context.
