@@ -63,3 +63,46 @@ docker exec -it my-nginx-container sh
 docker stop my-nginx-container
 docker rm my-nginx-container
 ```
+
+## День 5
+
+```bash
+mkdir -p docker/day-05-layers-cache
+cd docker/day-05-layers-cache
+
+cat > index.html <<'EOF'
+...
+EOF
+
+cat > about.html <<'EOF'
+...
+EOF
+
+cat > Dockerfile <<'EOF'
+FROM nginx:latest
+
+LABEL project="devops-roadmap"
+LABEL lesson="day-05-layers-cache"
+
+RUN mkdir -p /usr/share/nginx/html/pages
+
+COPY index.html /usr/share/nginx/html/index.html
+COPY about.html /usr/share/nginx/html/pages/about.html
+EOF
+
+docker build -t my-nginx-site:day5 .
+docker build -t my-nginx-site:day5 .
+docker run --name day5-nginx -d -p 8080:80 my-nginx-site:day5
+curl http://localhost:8080
+curl http://localhost:8080/pages/about.html
+
+# изменение index.html
+docker build -t my-nginx-site:day5 .
+docker stop day5-nginx
+docker rm day5-nginx
+docker run --name day5-nginx -d -p 8080:80 my-nginx-site:day5
+curl http://localhost:8080
+docker history my-nginx-site:day5
+docker stop day5-nginx
+docker rm day5-nginx
+```
