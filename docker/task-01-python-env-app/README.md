@@ -11,14 +11,14 @@
     "app": APP_NAME,
     "version": APP_VERSION,
     "environment": APP_ENV,
-    "author": APP_AUTHOR
+    "author": MAINTAINER
 
 3. переменные окружение имеются следующие:
 
 APP_NAME - Имя приложения
 APP_VERSION - Версия приложения
 APP_ENV - Окружение
-APP_AUTHOR - Разработчик
+MAINTAINER - Разработчик
 
 4. Сборка image осуществляется командой:
     docker build -t python-env-app:task1 .
@@ -32,7 +32,7 @@ docker run --name task1-python-env-app \
   -e APP_NAME="Мое первое тестовое приложение" \
   -e APP_VERSION="1.0.1" \
   -e APP_ENV="development" \
-  -e APP_AUTHOR="b6erezzzovsk1y" \
+  -e MAINTAINER="b6erezzzovsk1y" \
   python-env-app:task1
 
     Запуск контейнера без переменных окружения

@@ -8,7 +8,7 @@ app = Flask(__name__)
 APP_NAME = os.getenv("APP_NAME", "Python Docker App")
 APP_VERSION = os.getenv("APP_VERSION", "dev")
 APP_ENV = os.getenv("APP_ENV", "local")
-APP_AUTHOR = os.getenv("APP_AUTHOR", "Unknown Author")
+MAINTAINER = os.getenv("MAINTAINER", "unknown")
 
 @app.get("/")
 def index():
@@ -16,7 +16,7 @@ def index():
     <h1>Имя приложения: {APP_NAME}</h1>
     <p>Версия: {APP_VERSION}</p>
     <p>Окружение: {APP_ENV}</p>
-    <p>Автор: {APP_AUTHOR}</p>
+    <p>Автор: {MAINTAINER}</p>
     """
 
 
@@ -41,7 +41,7 @@ def info():
         "app": APP_NAME,
         "version": APP_VERSION,
         "environment": APP_ENV,
-        "author": APP_AUTHOR
+        "author": MAINTAINER
     })
 
 if __name__ == "__main__":
