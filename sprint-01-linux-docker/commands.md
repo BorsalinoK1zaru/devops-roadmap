@@ -106,3 +106,46 @@ docker history my-nginx-site:day5
 docker stop day5-nginx
 docker rm day5-nginx
 ```
+
+## День 6
+
+```bash
+mkdir -p docker/day-06-python-app
+cd docker/day-06-python-app
+
+cat > app.py <<'EOF'
+...
+EOF
+
+cat > requirements.txt <<'EOF'
+Flask
+gunicorn
+EOF
+
+cat > Dockerfile <<'EOF'
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY app.py .
+
+EXPOSE 5000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+EOF
+
+docker build -t python-web-app:day6 .
+docker images
+docker run --name day6-python-app -d -p 5000:5000 python-web-app:day6
+docker ps
+curl http://localhost:5000
+curl http://localhost:5000/health
+docker logs day6-python-app
+docker exec -it day6-python-app sh
+docker stop day6-python-app
+docker rm day6-python-app
+```
