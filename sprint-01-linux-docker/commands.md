@@ -275,3 +275,40 @@ docker stop day6-python-app
 
 docker rm day6-python-app
 ```
+
+## День 7
+
+```bash
+cd docker/day-06-python-app
+
+# обновил app.py: добавил os.getenv(), /version и переменные APP_NAME, APP_VERSION, APP_ENV
+
+docker build -t python-web-app:day7 .
+
+docker run --name day7-python-app -d -p 5000:5000 python-web-app:day7
+
+curl http://localhost:5000
+curl http://localhost:5000/version
+
+docker stop day7-python-app
+docker rm day7-python-app
+
+docker run --name day7-python-app \
+  -d \
+  -p 5050:5000 \
+  -e APP_NAME="DevOps Roadmap App" \
+  -e APP_VERSION="1.0.0" \
+  -e APP_ENV="development" \
+  python-web-app:day7
+
+curl http://localhost:5050
+curl http://localhost:5050/health
+curl http://localhost:5050/version
+
+docker exec -it day7-python-app sh
+
+docker logs day7-python-app
+
+docker stop day7-python-app
+docker rm day7-python-app
+```

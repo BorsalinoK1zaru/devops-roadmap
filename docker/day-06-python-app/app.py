@@ -1,13 +1,21 @@
+import os
+
 from flask import Flask, jsonify
 
 app = Flask(__name__)
 
 
+APP_NAME = os.getenv("APP_NAME", "Python Docker App")
+APP_VERSION = os.getenv("APP_VERSION", "dev")
+APP_ENV = os.getenv("APP_ENV", "local")
+
+
 @app.get("/")
 def index():
-    return """
-    <h1>Hello from Python Docker container</h1>
-    <p>Это мое первое Python web-приложение внутри Docker.</p>
+    return f"""
+    <h1>Hello from {APP_NAME}</h1>
+    <p>Version: {APP_VERSION}</p>
+    <p>Environment: {APP_ENV}</p>
     """
 
 
@@ -15,7 +23,16 @@ def index():
 def health():
     return jsonify({
         "status": "ok",
-        "service": "day-06-python-app"
+        "service": APP_NAME
+    })
+
+
+@app.get("/version")
+def version():
+    return jsonify({
+        "app": APP_NAME,
+        "version": APP_VERSION,
+        "environment": APP_ENV
     })
 
 
