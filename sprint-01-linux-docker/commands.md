@@ -312,3 +312,46 @@ docker logs day7-python-app
 docker stop day7-python-app
 docker rm day7-python-app
 ```
+
+## День 8
+
+```bash
+mkdir -p docker/day-08-docker-network
+cd docker/day-08-docker-network
+
+# создал app.py, requirements.txt и Dockerfile
+
+docker network create devops-net
+docker network ls
+docker network inspect devops-net
+
+docker run --name day8-redis -d --network devops-net redis:7-alpine
+
+docker ps
+docker logs day8-redis
+
+docker build -t python-network-app:day8 .
+
+docker run --name day8-python-app \
+  -d \
+  --network devops-net \
+  -p 7070:5000 \
+  -e APP_NAME="Docker Network Practice" \
+  -e REDIS_HOST="day8-redis" \
+  -e REDIS_PORT="6379" \
+  python-network-app:day8
+
+curl http://localhost:7070
+curl http://localhost:7070/health
+curl http://localhost:7070/redis-check
+curl http://localhost:7070/counter
+curl http://localhost:7070/counter
+curl http://localhost:7070/counter
+
+docker network inspect devops-net
+
+docker exec -it day8-python-app sh
+
+docker stop day8-python-app day8-redis
+docker rm day8-python-app day8-redis
+```
