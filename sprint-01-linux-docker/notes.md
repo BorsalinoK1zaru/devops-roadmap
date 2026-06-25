@@ -127,3 +127,24 @@ docker rm удаляет контейнер.
 - Redis может хранить данные в памяти, поэтому для надёжного теста можно выполнить `redis-cli SAVE`.
 - `docker volume ls` показывает volumes.
 - `docker volume inspect` показывает информацию о конкретном volume.
+
+## День 9. Уточнение
+
+- `app.py` не запускает два контейнера. Он находится только внутри Python-контейнера.
+- Redis запускается отдельным контейнером из image `redis:7-alpine`.
+- Python-приложение подключается к Redis по имени контейнера через Docker network.
+- Docker запускает контейнеры, Docker network связывает их, а Docker volume хранит данные Redis.
+
+## День 10. Что я понял
+
+- Docker Compose позволяет описать несколько контейнеров в одном YAML-файле.
+- `services` — список сервисов приложения.
+- `build: .` означает собрать image из Dockerfile в текущей папке.
+- `image` задаёт имя image.
+- `ports` работает как `-p` в `docker run`.
+- `environment` работает как `-e` в `docker run`.
+- `volumes` работает как `-v` в `docker run`.
+- Compose автоматически создаёт network для проекта.
+- В Compose сервисы могут обращаться друг к другу по service name, например `redis`.
+- `docker compose up -d` запускает проект в фоне.
+- `docker compose down` останавливает и удаляет контейнеры проекта и сеть, но не удаляет named volumes без `-v`.

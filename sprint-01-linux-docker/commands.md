@@ -410,3 +410,37 @@ docker exec -it day9-redis sh
 docker stop day9-python-app day9-redis
 docker rm day9-python-app day9-redis
 ```
+
+## День 10
+
+```bash
+mkdir -p docker/day-10-docker-compose
+cd docker/day-10-docker-compose
+
+# создал app.py, requirements.txt, Dockerfile и compose.yaml
+
+docker compose up -d
+
+docker compose ps
+
+curl http://localhost:8080
+curl http://localhost:8080/health
+curl http://localhost:8080/redis-check
+curl http://localhost:8080/counter
+curl http://localhost:8080/counter
+curl http://localhost:8080/counter
+
+docker compose logs
+docker compose logs app
+docker compose logs redis
+
+docker network ls
+docker volume ls
+
+docker compose exec app sh
+
+docker compose down
+
+docker ps
+docker volume ls
+```

@@ -1,0 +1,23 @@
+services:
+  app:
+    build: .
+    image: python-compose-app:day10
+    container_name: day10-python-app
+    ports:
+      - "8080:5000"
+    environment:
+      APP_NAME: "Docker Compose Practice"
+      APP_ENV: "development"
+      REDIS_HOST: "redis"
+      REDIS_PORT: "6379"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    container_name: day10-redis
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
