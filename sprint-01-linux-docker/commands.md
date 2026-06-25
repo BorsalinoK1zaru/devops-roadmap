@@ -355,3 +355,58 @@ docker exec -it day8-python-app sh
 docker stop day8-python-app day8-redis
 docker rm day8-python-app day8-redis
 ```
+
+## День 9
+
+```bash
+cd docker/day-08-docker-network
+
+docker rm -f day8-python-app day8-redis
+
+docker volume create redis-data
+docker volume ls
+docker volume inspect redis-data
+
+docker network ls
+docker network create devops-net
+
+docker run --name day9-redis \
+  -d \
+  --network devops-net \
+  -v redis-data:/data \
+  redis:7-alpine
+
+docker build -t python-network-app:day9 .
+
+docker run --name day9-python-app \
+  -d \
+  --network devops-net \
+  -p 7070:5000 \
+  -e APP_NAME="Docker Volume Practice" \
+  -e REDIS_HOST="day9-redis" \
+  -e REDIS_PORT="6379" \
+  python-network-app:day9
+
+curl http://localhost:7070/redis-check
+curl http://localhost:7070/counter
+curl http://localhost:7070/counter
+curl http://localhost:7070/counter
+
+docker exec -it day9-redis redis-cli SAVE
+
+docker stop day9-redis
+docker rm day9-redis
+
+docker run --name day9-redis \
+  -d \
+  --network devops-net \
+  -v redis-data:/data \
+  redis:7-alpine
+
+curl http://localhost:7070/counter
+
+docker exec -it day9-redis sh
+
+docker stop day9-python-app day9-redis
+docker rm day9-python-app day9-redis
+```
