@@ -444,3 +444,32 @@ docker compose down
 docker ps
 docker volume ls
 ```
+
+## День 11
+
+```bash
+mkdir -p docker/day-11-compose-env-healthcheck
+cd docker/day-11-compose-env-healthcheck
+
+# создал app.py, requirements.txt, Dockerfile, .env и compose.yaml
+
+docker compose up -d
+
+docker compose ps
+
+curl http://localhost:8090
+curl http://localhost:8090/health
+curl http://localhost:8090/config
+curl http://localhost:8090/redis-check
+curl http://localhost:8090/counter
+curl http://localhost:8090/counter
+
+docker compose exec app sh
+
+docker inspect day11-redis --format='{{json .State.Health}}'
+
+docker compose logs app
+docker compose logs redis
+
+docker compose down
+```
