@@ -473,3 +473,8 @@ docker compose logs redis
 
 docker compose down
 ```
+## День 12. Самостоятельная работа 2
+
+mkdir -p docker/task-02-compose-redis-app/
+cd docker/task-02-compose-redis-app/
+docker compose up -d
