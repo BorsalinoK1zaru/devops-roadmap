@@ -1,99 +1,69 @@
-1. Что делает приложение
-многосервисное приложение по увеличению счетчика и сбрасыванию его
+# Compose Redis Task App
 
-Приложение содержит 2 контейнера:
-python-compose-task2 - Основная работа с endpoint
-task2-redis - работа с переменной counter
+## Описание
 
-2. Список endpoint-ов 
+Flask-приложение, которое запускается через Docker Compose и использует Redis для хранения счётчика.
 
---Endpoint /
-Возвращает HTML-страницу:
+## Сервисы
 
-Название приложения
-Версия
-Окружение
-Redis host
-Redis port
+- `app` — Flask + Gunicorn
+- `redis` — Redis 7 Alpine
 
---Endpoint /health
-Возвращает JSON:
-{
-  "status": "ok"
-}
+## Endpoint-ы
 
---Endpoint /config
-Возвращает JSON с текущей конфигурацией приложения:
+| Endpoint | Описание |
+|---|---|
+| `/` | Главная HTML-страница |
+| `/health` | Проверка работы приложения |
+| `/config` | Текущая конфигурация из переменных окружения |
+| `/redis-check` | Проверка подключения к Redis |
+| `/counter` | Увеличение счётчика |
+| `/reset` | Сброс счётчика |
 
-{
-  "app": "...",
-  "version": "...",
-  "environment": "...",
-  "redis_host": "...",
-  "redis_port": "..."
-}
+## Переменные окружения
 
---Endpoint /redis-check
-Проверяет подключение к Redis.
-При успехе:
-{
-  "redis": "connected"
-}
+Смотри `.env.example`.
 
---Endpoint /counter
-Увеличивает счётчик в Redis.
-Первый вызов:
-{
-  "counter": 1
-}
-Следующий:
-{
-  "counter": 2
-}
+## Запуск
 
---Endpoint /reset
-Сбрасывает счётчик в Redis.
-После вызова /reset следующий /counter должен снова вернуть:
-{
-  "counter": 1
-}
+```bash
+cp .env.example .env
+docker compose up -d --build
+```
 
-3. Переменные окружения
+## Проверка
 
-APP_NAME= Название приложения
-APP_ENV= Окружение
-APP_VERSION= Версия приложения
-APP_PORT= Внешний порт приложения
-
-REDIS_HOST= Имя хоста
-REDIS_PORT= Порт хоста 
-4. Как запустить проект
-
---1) перейти в папку проекта
---2) docker compose up -d
-
-5. Как проверить endpoints через curl
-
-curl http://localhost:8070
+```bash
 curl http://localhost:8070/health
 curl http://localhost:8070/config
 curl http://localhost:8070/redis-check
 curl http://localhost:8070/counter
-curl http://localhost:8070/counter
 curl http://localhost:8070/reset
-curl http://localhost:8070/counter
-curl http://localhost:8070/counter
+```
 
+## Логи
 
-6. Как остановить проект
+```bash
+docker compose logs app
+docker compose logs redis
+```
 
---1) перейти в папку проекта
---2) docker compose down
+## Остановка
 
-7. Что делает volume
+```bash
+docker compose down
+```
 
-Сохраняет значения из redis (В нашем случаем counter)
+## Volume
 
-8. Что делает healthcheck
+Redis использует named volume `redis-data`, который хранит данные отдельно от контейнера.
 
-С его помощью мы проверяем, что сервис не только запустился, но и готов принимать команды
+## Healthcheck
+
+Redis проверяется через команду:
+
+```bash
+redis-cli ping
+```
+
+Если Redis отвечает `PONG`, сервис получает статус `healthy`.

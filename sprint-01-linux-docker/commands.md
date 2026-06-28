@@ -478,3 +478,33 @@ docker compose down
 mkdir -p docker/task-02-compose-redis-app/
 cd docker/task-02-compose-redis-app/
 docker compose up -d
+
+## День 13
+
+```bash
+cd docker/task-02-compose-redis-app
+
+# добавил gunicorn.conf.py
+# обновил Dockerfile
+# обновил .env.example
+# добавил .dockerignore
+# обновил README.md
+# исправил /reset
+
+cd ~/projects/devops-roadmap
+
+# обновил .gitignore
+git rm --cached docker/task-02-compose-redis-app/.env
+
+cd docker/task-02-compose-redis-app
+
+docker compose down
+docker compose up -d --build
+
+docker compose ps
+curl http://localhost:8070/health
+curl http://localhost:8070/config
+curl http://localhost:8070/counter
+curl http://localhost:8070/reset
+curl http://localhost:8070/counter
+docker compose logs app
