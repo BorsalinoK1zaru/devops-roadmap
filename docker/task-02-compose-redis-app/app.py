@@ -60,9 +60,9 @@ def counter():
 
 @app.get("/reset")
 def reset():
-    redis_client.set("day11_counter",0)
+    redis_client.set("day11_counter", 0)
     return jsonify({
-        "counter": redis_client.get("day11_counter")
+        "counter": 0
     })
 
 @app.get("/config")
