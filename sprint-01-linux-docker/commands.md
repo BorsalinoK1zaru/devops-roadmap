@@ -508,3 +508,5 @@ curl http://localhost:8070/counter
 curl http://localhost:8070/reset
 curl http://localhost:8070/counter
 docker compose logs app
+
+git remote -v
