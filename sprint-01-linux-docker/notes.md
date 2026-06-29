@@ -195,3 +195,14 @@ docker rm удаляет контейнер.
 - Если изменить `.env`, контейнер нужно пересоздать.
 - `docker inspect` помогает проверить healthcheck.
 - `restart: unless-stopped` задаёт политику перезапуска контейнера.
+
+## День 15. Что я понял
+
+- `docker system df` показывает, сколько места занимают Docker objects.
+- Image tag — это ссылка на image.
+- У одного image может быть несколько tags.
+- `docker image rm image:tag` может удалить только tag, если у image есть другие tags.
+- Stopped containers можно удалить через `docker container prune`.
+- Dangling images можно удалить через `docker image prune`.
+- Build cache можно удалить через `docker builder prune`.
+- Volumes нужно удалять осторожно, потому что там могут быть данные.

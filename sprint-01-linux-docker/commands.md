@@ -552,3 +552,37 @@ curl http://localhost:8070/redis-check
 docker compose config
 docker compose up -d
 docker compose ps
+
+## День 15
+
+cd ~/projects/devops-roadmap
+
+docker system df
+docker system df -v
+
+docker image ls
+docker images
+
+docker ps
+docker ps -a
+
+docker volume ls
+
+cd docker/task-02-compose-redis-app
+
+docker build -t python-compose-task:day15 .
+docker image ls python-compose-task
+docker image rm python-compose-task:day15
+docker image ls python-compose-task
+
+docker container prune
+
+docker image ls -f dangling=true
+docker image prune
+docker image ls -f dangling=true
+
+docker system df
+
+# создал CLEANUP.md
+
+git status
