@@ -510,3 +510,45 @@ curl http://localhost:8070/counter
 docker compose logs app
 
 git remote -v
+
+## День 14
+
+```bash
+cd docker/task-02-compose-redis-app
+
+docker compose up -d --build
+docker compose ps
+docker compose config
+
+curl http://localhost:8070/health
+curl http://localhost:8070/config
+curl http://localhost:8070/redis-check
+curl http://localhost:8070/counter
+
+docker compose logs app
+docker compose logs --tail=20 app
+docker compose logs -f app
+
+docker compose exec app sh
+docker compose exec redis redis-cli ping
+
+docker inspect task2-redis --format='{{json .State.Health.Status}}'
+docker inspect task2-redis --format='{{json .State.Health}}'
+
+docker compose top
+docker stats --no-stream python-compose-task2 task2-redis
+
+# временно сломал REDIS_HOST=wrong-redis
+docker compose up -d --force-recreate app
+curl http://localhost:8070/config
+curl http://localhost:8070/redis-check
+docker compose logs --tail=30 app
+
+# вернул REDIS_HOST=redis
+docker compose up -d --force-recreate app
+curl http://localhost:8070/redis-check
+
+# добавил restart: unless-stopped
+docker compose config
+docker compose up -d
+docker compose ps

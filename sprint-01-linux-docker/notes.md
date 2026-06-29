@@ -185,3 +185,13 @@ docker rm удаляет контейнер.
 - `.dockerignore` уменьшает build context и не даёт лишним файлам попасть в Docker build.
 - Gunicorn можно настраивать через отдельный `gunicorn.conf.py`.
 - Access logs помогают видеть входящие HTTP-запросы в `docker compose logs app`.
+
+## День 14. Что я понял
+
+- `docker compose config` показывает итоговую конфигурацию после подстановки переменных из `.env`.
+- `docker compose logs` помогает смотреть ошибки и HTTP-запросы приложения.
+- `docker compose exec` позволяет зайти внутрь контейнера и проверить окружение изнутри.
+- Service name `redis` можно проверить через DNS внутри app-контейнера.
+- Если изменить `.env`, контейнер нужно пересоздать.
+- `docker inspect` помогает проверить healthcheck.
+- `restart: unless-stopped` задаёт политику перезапуска контейнера.

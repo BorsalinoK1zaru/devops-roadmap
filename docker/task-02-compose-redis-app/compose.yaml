@@ -3,6 +3,7 @@ services:
     build: .
     image: python-compose-task:task2
     container_name: python-compose-task2
+    restart: unless-stopped
     ports:
       - "${APP_PORT}:5000"
     env_file:
@@ -14,6 +15,7 @@ services:
   redis:
     image: redis:7-alpine
     container_name: task2-redis
+    restart: unless-stopped
     volumes:
       - redis-data:/data
     healthcheck:
