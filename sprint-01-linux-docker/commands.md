@@ -586,3 +586,30 @@ docker system df
 # создал CLEANUP.md
 
 git status
+
+cd docker/task-02-compose-redis-app
+
+docker compose up -d --build
+docker compose ps
+
+curl http://localhost:8070/health
+curl http://localhost:8070/config
+curl http://localhost:8070/redis-check
+
+docker compose exec app id
+docker image history python-compose-task:task2
+
+# обновил Dockerfile
+docker compose down
+docker compose build --no-cache app
+docker compose up -d
+
+docker compose exec app id
+docker compose top
+cat .dockerignore
+docker compose build app
+docker image history python-compose-task:task2
+docker image ls python-compose-task
+
+# создал DOCKERFILE_BEST_PRACTICES.md
+git status

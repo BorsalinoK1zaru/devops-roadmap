@@ -206,3 +206,13 @@ docker rm удаляет контейнер.
 - Dangling images можно удалить через `docker image prune`.
 - Build cache можно удалить через `docker builder prune`.
 - Volumes нужно удалять осторожно, потому что там могут быть данные.
+
+## День 16. Что я понял
+
+- Порядок инструкций в Dockerfile влияет на Docker cache.
+- `COPY requirements.txt` лучше делать до копирования `app.py`.
+- Приложение внутри контейнера лучше запускать не от root.
+- `USER appuser` переключает пользователя для запуска процесса.
+- `.dockerignore` уменьшает build context.
+- `docker image history` показывает слои image.
+- `PYTHONUNBUFFERED=1` помогает видеть логи сразу.
