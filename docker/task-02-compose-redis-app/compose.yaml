@@ -6,8 +6,16 @@ services:
     restart: unless-stopped
     ports:
       - "${APP_PORT}:5000"
-    env_file:
-      - .env
+    environment:
+      APP_NAME: "${APP_NAME}"
+      APP_ENV: "${APP_ENV}"
+      APP_VERSION: "${APP_VERSION}"
+      APP_PORT: "${APP_PORT}"
+      REDIS_HOST: "${REDIS_HOST}"
+      REDIS_PORT: "${REDIS_PORT}"
+      GUNICORN_WORKERS: "${GUNICORN_WORKERS}"
+      GUNICORN_TIMEOUT: "${GUNICORN_TIMEOUT}"
+      GUNICORN_LOG_LEVEL: "${GUNICORN_LOG_LEVEL}"
     depends_on:
       redis:
         condition: service_healthy
@@ -25,5 +33,16 @@ services:
       retries: 5
       start_period: 5s
 
+  debug-redis-cli:
+    image: redis:7-alpine
+    container_name: task2-redis-cli
+    profiles:
+      - debug
+    command: ["sh", "-c", "sleep infinity"]
+    depends_on:
+      redis:
+        condition: service_healthy
+
 volumes:
   redis-data:
+

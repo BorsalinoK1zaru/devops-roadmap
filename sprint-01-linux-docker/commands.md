@@ -613,3 +613,38 @@ docker image ls python-compose-task
 
 # создал DOCKERFILE_BEST_PRACTICES.md
 git status
+
+## День 17
+
+И основные команды:
+
+cd docker/task-02-compose-redis-app
+
+# обновил compose.yaml
+# создал .env.dev.example
+# создал .env.prod.example
+# обновил .gitignore
+# создал локальный .env.dev
+
+docker compose --env-file .env.dev config
+docker compose --env-file .env.dev up -d --build
+docker compose --env-file .env.dev ps
+
+curl http://localhost:8070/health
+curl http://localhost:8070/config
+curl http://localhost:8070/redis-check
+curl http://localhost:8070/counter
+
+docker compose --env-file .env.dev --profile debug up -d
+docker compose --env-file .env.dev ps
+docker compose --env-file .env.dev exec debug-redis-cli redis-cli -h redis ping
+docker compose --env-file .env.dev exec debug-redis-cli redis-cli -h redis GET day11_counter
+
+docker compose --env-file .env.dev --profile debug down
+docker compose --env-file .env.dev up -d
+docker compose --env-file .env.dev ps
+
+docker compose --env-file .env.prod.example config
+
+# создал COMPOSE_PROFILES.md
+git status

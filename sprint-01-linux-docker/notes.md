@@ -216,3 +216,14 @@ docker rm удаляет контейнер.
 - `.dockerignore` уменьшает build context.
 - `docker image history` показывает слои image.
 - `PYTHONUNBUFFERED=1` помогает видеть логи сразу.
+
+## День 17. Что я понял
+
+- `--env-file` позволяет запускать один compose.yaml с разными env-файлами.
+- `${VARIABLE}` в compose.yaml подставляется из env-файла.
+- `environment` передаёт переменные внутрь контейнера.
+- `profiles` позволяют запускать дополнительные сервисы только при необходимости.
+- Сервис без `profiles` запускается по умолчанию.
+- Сервис с `profiles: [debug]` запускается только с `--profile debug`.
+- Локальные `.env.dev` и `.env.prod` лучше не коммитить.
+- `.env.dev.example` и `.env.prod.example` можно хранить в Git как шаблоны.
