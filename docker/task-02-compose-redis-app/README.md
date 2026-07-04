@@ -4,6 +4,17 @@
 
 Flask-приложение, которое запускается через Docker Compose и использует Redis для хранения счётчика.
 
+Проект показывает:
+
+- сборку Python-приложения через Dockerfile;
+- запуск нескольких сервисов через Docker Compose;
+- использование Redis;
+- healthcheck;
+- env-файлы;
+- Compose profiles;
+- Compose override;
+- запуск приложения не от root-пользователя.
+
 ## Сервисы
 
 - `app` — Flask + Gunicorn
@@ -24,12 +35,13 @@ Flask-приложение, которое запускается через Doc
 
 Смотри `.env.example`.
 
-## Запуск
+## Запуск dev-режима
 
-```bash
-cp .env.example .env
-docker compose up -d --build
-```
+docker compose --env-file .env.dev up -d --build
+
+## Запуск debug-сервиса:
+
+docker compose --env-file .env.dev --profile debug up -d
 
 ## Проверка
 
@@ -51,8 +63,14 @@ docker compose logs redis
 ## Остановка
 
 ```bash
-docker compose down
+docker compose --env-file .env.dev down
 ```
+
+## Production config check
+
+Проверить production-конфигурацию без запуска:
+
+docker compose --env-file .env.prod.example -f compose.yaml -f compose.prod.yaml config
 
 ## Volume
 
@@ -67,3 +85,11 @@ redis-cli ping
 ```
 
 Если Redis отвечает `PONG`, сервис получает статус `healthy`.
+
+## Документация проекта
+
+DEBUGGING.md — диагностика проекта.
+CLEANUP.md — безопасная очистка Docker.
+DOCKERFILE_BEST_PRACTICES.md — лучшие практики Dockerfile.
+COMPOSE_PROFILES.md — profiles и env-файлы.
+COMPOSE_OVERRIDE.md — override-файлы и bind mounts.

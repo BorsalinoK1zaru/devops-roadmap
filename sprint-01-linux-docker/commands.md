@@ -682,3 +682,45 @@ docker compose --env-file .env.prod.example -f compose.yaml -f compose.prod.yaml
 # создал COMPOSE_OVERRIDE.md
 git status
 ```
+
+## День 19
+
+```bash
+cd docker/task-02-compose-redis-app
+
+printf '\n' >> COMPOSE_OVERRIDE.md
+
+pwd
+find . -maxdepth 1 -type f | sort
+find . -maxdepth 1 -type d | sort
+
+git status --short
+git check-ignore -v .env.dev
+
+# обновил README.md
+
+docker compose --env-file .env.dev --profile debug down
+docker compose --env-file .env.dev up -d --build
+docker compose --env-file .env.dev ps
+
+curl http://localhost:8070/health
+curl http://localhost:8070/config
+curl http://localhost:8070/redis-check
+curl http://localhost:8070/counter
+
+docker compose --env-file .env.dev exec app id
+
+docker compose --env-file .env.dev --profile debug up -d
+docker compose --env-file .env.dev ps
+docker compose --env-file .env.dev exec debug-redis-cli redis-cli -h redis ping
+docker compose --env-file .env.dev exec debug-redis-cli redis-cli -h redis GET day11_counter
+
+docker compose --env-file .env.dev --profile debug down
+docker compose --env-file .env.dev up -d
+docker compose --env-file .env.dev ps
+
+docker compose --env-file .env.prod.example -f compose.yaml -f compose.prod.yaml config
+
+# создал PROJECT_REVIEW.md
+
+git status
