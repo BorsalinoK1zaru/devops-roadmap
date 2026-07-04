@@ -1,0 +1,8 @@
+services:
+  app:
+    restart: unless-stopped
+    environment:
+      APP_ENV: "production"
+      GUNICORN_LOG_LEVEL: "warning"
+    ports:
+      - "${APP_PORT}:5000"

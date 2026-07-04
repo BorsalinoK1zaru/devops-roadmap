@@ -325,4 +325,24 @@
 - ...
 
 Время:
-- ...
+- 20
+
+## День 18
+
+Что сделал:
+- Создал `compose.override.yaml`.
+- Проверил автоматическое применение override.
+- Запустил проект с override.
+- Проверил bind mount для `app.py`.
+- Создал `compose.prod.yaml`.
+- Проверил production config через `-f compose.yaml -f compose.prod.yaml`.
+- Создал `COMPOSE_OVERRIDE.md`.
+
+Что понял:
+- как разделять prod и dev в docker
+
+Что осталось непонятно:
+- на данный момент все понятно
+
+Время:
+- 30

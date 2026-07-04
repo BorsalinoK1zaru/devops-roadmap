@@ -648,3 +648,37 @@ docker compose --env-file .env.prod.example config
 
 # создал COMPOSE_PROFILES.md
 git status
+
+## День 18
+
+```bash
+cd docker/task-02-compose-redis-app
+
+cat compose.yaml
+docker compose --env-file .env.dev config
+
+# создал compose.override.yaml
+docker compose --env-file .env.dev config
+
+docker compose --env-file .env.dev up -d --build
+docker compose --env-file .env.dev ps
+
+curl http://localhost:8070/config
+curl http://localhost:8070/redis-check
+docker compose exec app id
+
+# временно изменил /health в app.py
+curl http://localhost:8070/health
+docker compose --env-file .env.dev restart app
+curl http://localhost:8070/health
+
+# вернул app.py обратно
+docker compose --env-file .env.dev restart app
+curl http://localhost:8070/health
+
+# создал compose.prod.yaml
+docker compose --env-file .env.prod.example -f compose.yaml -f compose.prod.yaml config
+
+# создал COMPOSE_OVERRIDE.md
+git status
+```
