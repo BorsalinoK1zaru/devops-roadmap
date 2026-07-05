@@ -66,3 +66,12 @@ tail -f server.log
 
 cat server.pid
 kill $(cat server.pid)
+
+
+## День 23
+
+echo $?
+
+Пример:
+curl -f http://127.0.0.1:9000
+echo $?
