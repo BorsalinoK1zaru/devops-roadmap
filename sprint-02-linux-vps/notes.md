@@ -32,3 +32,16 @@
 - `curl -f` полезен для healthcheck.
 - `ss -tulpn` помогает проверить, слушает ли сервис порт.
 - `tail -n` показывает последние строки лога.
+
+## День 24. Что я понял
+
+- Bash-скрипты можно использовать для управления Docker Compose проектом.
+- `compose-up.sh` запускает проект.
+- `compose-down.sh` останавливает проект.
+- `compose-status.sh` показывает состояние контейнеров и services.
+- `compose-healthcheck.sh` проверяет HTTP endpoints приложения.
+- `compose-logs.sh` показывает логи app или redis.
+- `docker compose down` не удаляет volumes.
+- `docker compose down -v` удаляет volumes и может удалить данные.
+- Exit code `0` означает успешную проверку.
+- Exit code `1` означает ошибку проверки.

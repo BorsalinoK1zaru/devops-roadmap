@@ -75,3 +75,19 @@ echo $?
 Пример:
 curl -f http://127.0.0.1:9000
 echo $?
+
+## День 24
+
+cd ~/projects/devops-roadmap
+
+./sprint-02-linux-vps/scripts/day24/compose-status.sh
+
+cd ~/projects/devops-roadmap
+
+./sprint-02-linux-vps/scripts/day24/compose-healthcheck.sh
+echo $?
+
+cd ~/projects/devops-roadmap
+
+./sprint-02-linux-vps/scripts/day24/compose-logs.sh
+./sprint-02-linux-vps/scripts/day24/compose-logs.sh redis 30
