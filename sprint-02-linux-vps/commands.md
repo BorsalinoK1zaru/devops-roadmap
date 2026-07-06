@@ -91,3 +91,7 @@ cd ~/projects/devops-roadmap
 
 ./sprint-02-linux-vps/scripts/day24/compose-logs.sh
 ./sprint-02-linux-vps/scripts/day24/compose-logs.sh redis 30
+
+## День 24
+
+---

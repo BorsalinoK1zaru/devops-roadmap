@@ -1,0 +1,6 @@
+Host devops-vps
+    HostName <server-ip>
+    User <server-user>
+    Port 22
+    IdentityFile ~/.ssh/devops_vps_ed25519
+    IdentitiesOnly yes
