@@ -105,3 +105,24 @@
 
 Время:
 - 10
+
+## День 27
+
+Что сделал:
+- Подключился к серверу по SSH.
+- Добавил официальный Docker apt repository.
+- Установил Docker Engine, Compose plugin и Buildx.
+- Проверил docker service.
+- Запустил hello-world.
+- Добавил borsalino в группу docker.
+- Добавил rustem в группу docker.
+- Проверил запуск Docker без sudo.
+- Проверил firewall и listening ports.
+- Создал docker-server-check.sh.
+
+Что понял:
+- Как устанавливать Docker на удаленный сервер
+- Как изменять права доступа на сервере пользователям
+
+Что осталось непонятно:
+- 

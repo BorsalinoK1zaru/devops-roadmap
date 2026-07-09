@@ -57,3 +57,14 @@
 - Baseline script помогает быстро проверить состояние сервера.
 - Перед деплоем нужно проверить пользователя, ОС, диск, RAM, порты и интернет.
 
+## День 27. Что я понял
+
+- Docker Engine установлен на self-hosted Ubuntu server.
+- Docker service управляется через systemd.
+- Docker service должен быть active и enabled.
+- `docker compose` работает как Docker CLI plugin.
+- `hello-world` проверяет связь Docker CLI, Docker daemon, Docker Hub, image и container.
+- Пользователь в группе docker может запускать Docker без sudo.
+- Группа docker даёт высокий уровень доступа к серверу.
+- Пользователь rustem тоже добавлен в docker group, потому что сервер используется совместно.
+- Пока наружу открыт только SSH, порты приложений не открывались.
