@@ -5,7 +5,7 @@ services:
     container_name: python-compose-task2
     restart: unless-stopped
     ports:
-      - "${APP_PORT}:5000"
+    - "${HOST_BIND:-127.0.0.1}:${HOST_PORT:-8070}:${APP_PORT:-5000}"
     environment:
       APP_NAME: "${APP_NAME}"
       APP_ENV: "${APP_ENV}"
