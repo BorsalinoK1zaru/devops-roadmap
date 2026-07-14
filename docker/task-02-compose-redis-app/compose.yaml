@@ -5,7 +5,10 @@ services:
     container_name: python-compose-task2
     restart: unless-stopped
     ports:
-    - "${HOST_BIND:-127.0.0.1}:${HOST_PORT:-8070}:${APP_PORT:-5000}"
+    - target: ${APP_PORT:-5000}
+      published: "${HOST_PORT:-8070}"
+      host_ip: "${HOST_BIND:-127.0.0.1}"
+      protocol: tcp
     environment:
       APP_NAME: "${APP_NAME:-DevOps Compose App}"
       APP_ENV: "${APP_RUNTIME_ENV:-development}"
