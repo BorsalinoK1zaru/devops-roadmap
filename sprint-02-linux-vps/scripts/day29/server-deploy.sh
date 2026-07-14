@@ -60,11 +60,38 @@ echo "5. Compose status:"
 docker compose --env-file "$ENV_FILE" ps
 echo
 
-echo "6. Healthcheck:"
-curl -fsS "$BASE_URL/health"
+echo "6. Waiting for application healthcheck..."
+
+for attempt in {1..10}; do
+  echo "Attempt $attempt/10: checking /health..."
+
+  if curl -fsS "$BASE_URL/health"; then
+    echo
+    echo "OK: application is healthy"
+    break
+  fi
+
+  if [[ "$attempt" -eq 10 ]]; then
+    echo
+    echo "ERROR: application did not become healthy"
+    echo
+    echo "Last app logs:"
+    docker compose --env-file "$ENV_FILE" logs --tail=80 app
+    exit 1
+  fi
+
+  echo
+  echo "Application is not ready yet, waiting 3 seconds..."
+  sleep 3
+done
+
 echo
+echo "7. Checking Redis connection from app:"
 curl -fsS "$BASE_URL/redis-check"
 echo
+
+echo
+echo "8. Checking Redis directly:"
 docker compose --env-file "$ENV_FILE" exec -T redis redis-cli ping
 echo
 
